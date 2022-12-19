@@ -1,0 +1,22 @@
+{
+  "name": "reqresapi",
+  "version": "1.0.0",
+  "description": "Automation test for reqres api's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namra19/reqresapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/namra19/reqresapi/issues"
+  },
+  "homepage": "https://github.com/namra19/reqresapi#readme",
+  "dependencies": {
+    "cypress": "^12.1.0"
+  }
+}
