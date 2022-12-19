@@ -63,7 +63,7 @@ describe('egg timer functionality', () => {
         cy.get('.EggTimer-timer-bar-back').click()
     })
 
-    it.only('should verify the alert when time expires', () => {
+    it('should verify the alert when time expires', () => {
         cy.get('#EggTimer-start-time-input-text').type('10')
         cy.get('.validTime').click()
         //enable notification from toolbar
