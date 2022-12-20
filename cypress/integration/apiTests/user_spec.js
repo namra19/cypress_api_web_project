@@ -4,7 +4,7 @@ import { STATUS, REST_OPERATIONS } from '../../fixtures/constants/constants'
 
 describe('should add a new user', () => {
   let id;
-  context('POST requests', () => {
+  context('All rest api operations', () => {
     it('should create a new user and validate status code', () => {
       cy.request({
         method: REST_OPERATIONS.POST,
@@ -36,6 +36,8 @@ describe('should add a new user', () => {
       });
     });
 
+    // Below test should be able to get the newly created user with id however 
+    // new user is not added to the database hence retriving an existing user
     it('should get a user and validate response', () => {
       cy.request({
         method: REST_OPERATIONS.GET,

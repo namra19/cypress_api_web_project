@@ -89,6 +89,10 @@ class HomePage {
         return cy.get('.UI-toggle-switch-on.selected')
     }
 
+    getThemeClass() {
+        return cy.get('.EggTimer-timer-wrapper div')
+    }
+
 }
 
 export default HomePage
