@@ -1,0 +1,14 @@
+Improvements:
+
+- Tests are currently depending on data which can be change/removed in future
+- Hard code values should move to constants file
+- Create utility for repeated test cases
+- Integrate Cypress test cases with a test management tool - Testrail to centralize automated test results
+- Integrate Cucumber BDD plugin with Cypress that can allow all stakeolders and business users to contribute in test automation
+- Host Cypress Dashboard in your own environment
+- Integration of test suites with the CI/CD pipeline
+- Parallelization
+- Cross Browser Testing
+- Introduce code coverage tools
+- Increase test coverage covering scenarios like pagination
+- Embedded screenshots in Reporting

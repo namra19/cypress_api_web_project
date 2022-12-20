@@ -1,5 +1,11 @@
-# reqresapi
-This repository contains the code for UI and API test automation
+# qa-assignment-contentoo
+This repository contains the code for UI and API test automation and manual test documentation
+
+1) software_testing_theory_task.pdf
+2) bugs_namra.pdf
+3) manual_testing_namra.pdf
+4) test_plan_namra.xlsx
+5) List of improvement points in this framework
 
 * WebUrl: https://e.ggtimer.com/
 * BaseUrl: https://reqres.in/
@@ -42,3 +48,6 @@ Right click on report.html file and copy path to view in browser
 * Fixtures - Has sub folders as per the pages to store urls and constants
 * Integration - Has test cases for both UI and API
 * Page Objects - Contains all the locators for test cases as per the pages
+
+![alt text](sample_report.png)
+

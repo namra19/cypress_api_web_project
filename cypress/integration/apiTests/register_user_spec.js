@@ -16,6 +16,8 @@ describe('should register a new user', () => {
       });
     });
 
+    // This test should also work with newly created user however new user is not added to database
+    // hence it is not possible to register with new user
     it('should register user and validate response', () => {
       cy.request({
         method: 'POST',
