@@ -1,25 +1,26 @@
 import ENDPOINTS from '../../fixtures/constants/EndPoints'
 import { NEW_USER, UPDATED_USER } from '../../fixtures/constants/requestResponse'
+import { STATUS, REST_OPERATIONS } from '../../fixtures/constants/constants'
 
 describe('should add a new user', () => {
   let id;
   context('POST requests', () => {
     it('should create a new user and validate status code', () => {
       cy.request({
-        method: 'POST',
+        method: REST_OPERATIONS.POST,
         url: ENDPOINTS.users,
         body: NEW_USER,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
       }).then((res) => {
-        expect(res.status).to.eq(201);
+        expect(res.status).to.eq(STATUS.CODE_201);
       });
     });
 
     it('should create a new user and validate response', () => {
       cy.request({
-        method: 'POST',
+        method: REST_OPERATIONS.POST,
         url: ENDPOINTS.users,
         body: NEW_USER,
         headers: {
@@ -37,27 +38,27 @@ describe('should add a new user', () => {
 
     it('should get a user and validate response', () => {
       cy.request({
-        method: 'GET',
+        method: REST_OPERATIONS.GET,
         url: ENDPOINTS.users + '/1',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
       }).then((res) => {
-        expect(res.status).to.eq(200);
+        expect(res.status).to.eq(STATUS.CODE_200);
         expect(res.body.data.id).to.eq(1);
       });
     });
 
     it('should update the newly created user and validate response', () => {
       cy.request({
-        method: 'PUT',
+        method: REST_OPERATIONS.PUT,
         url: ENDPOINTS.users + '/' + id,
         body: UPDATED_USER,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
       }).then((res) => {
-        expect(res.status).to.eq(200);
+        expect(res.status).to.eq(STATUS.CODE_200);
         expect(Object.keys(res.body)).to.have.length(3);
         expect(res.body.id).to.undefined;
         expect(res.body.name).to.eq(UPDATED_USER.name);
@@ -67,14 +68,14 @@ describe('should add a new user', () => {
 
     it('should update the job of newly created user and validate response', () => {
       cy.request({
-        method: 'PATCH',
+        method: REST_OPERATIONS.PATCH,
         url: ENDPOINTS.users + '/' + id,
         body: UPDATED_USER,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
       }).then((res) => {
-        expect(res.status).to.eq(200);
+        expect(res.status).to.eq(STATUS.CODE_200);
         expect(Object.keys(res.body)).to.have.length(3);
         expect(res.body.id).to.undefined;
         expect(res.body.name).to.eq(UPDATED_USER.name);
@@ -84,13 +85,13 @@ describe('should add a new user', () => {
 
     it('should delete the newly created user and validate response', () => {
       cy.request({
-        method: 'DELETE',
+        method: REST_OPERATIONS.DELETE,
         url: ENDPOINTS.users + '/' + id,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
       }).then((res) => {
-        expect(res.status).to.eq(204);
+        expect(res.status).to.eq(STATUS.CODE_204);
       });
     });
 
