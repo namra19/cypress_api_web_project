@@ -15,9 +15,9 @@ describe('egg timer functionality', () => {
 
     it('should verify the timer if user sets the time manually in minutes', () => {
         homePage.getHomePageTitle().should('contain', 'e.ggtimer')
-        homePage.getInputField().type('15 minutes')
+        homePage.getInputField().type('15minutes')
         homePage.getStartBtn().click()
-        homePage.verifyRedirectedUrl().should('be.equal', 'https://e.ggtimer.com/15%20minutes')
+        homePage.verifyRedirectedUrl().should('be.equal', 'https://e.ggtimer.com/15minutes')
         homePage.getTimerBackBtn().click()
     })
 
@@ -44,7 +44,7 @@ describe('egg timer functionality', () => {
         homePage.verifyTimerText().should('have.text', 'We will go live!')
     })
 
-    it('should verify the timer when user enters large integer values', () => {
+    it('should verify the timer when user enters large values', () => {
         homePage.getInputField().type('57575775757575757575677575757')
         homePage.getStartBtn().click()
         homePage.verifyInvalidValidationTxt()
@@ -57,8 +57,12 @@ describe('egg timer functionality', () => {
     })
 
     it('should verify if the user is able to perform actions on toolbar', () => {
+        //adding time through url
         homePage.verifyRedirectedUrl().then(urlValue => cy.visit(urlValue + '120'))
+        homePage.getThemeClass().should('have.class', 'ClassicTimer')
         homePage.selectTheme().eq(0).select('Dot Matrix').should('have.value', 'gg_timer_dotmatrix')
+        // Theme should be changed to DotMatrix
+        homePage.getThemeClass().should('have.class', 'DotMatrixTimer')
         homePage.getVolumeOffBtnToolBar().eq(1).click({ force: true })
         homePage.getHelpBtnToolBar().click()
         homePage.getHelpAndSettingsCloseBtn().click({ force: true })
@@ -72,7 +76,7 @@ describe('egg timer functionality', () => {
         //enable notification from toolbar
         homePage.getEnableNotificationBtn().eq(0).click({ foce: true })
         cy.wait(10000)
-        //verify alert
+        //verify alert popup
         cy.on('window:alert', (txt) => {
             expect(txt).to.contains('Time Expired!');
         })
