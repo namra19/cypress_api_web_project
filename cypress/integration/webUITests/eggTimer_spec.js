@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
 import urls from '../../fixtures/urls/urls.json'
+import HomePage from '../../page_objects/HomePage'
+
+const homePage = new HomePage()
 
 describe('egg timer functionality', () => {
 
@@ -11,63 +14,63 @@ describe('egg timer functionality', () => {
     })
 
     it('should verify the timer if user sets the time manually in minutes', () => {
-        cy.title().should('contain', 'e.ggtimer')
-        cy.get('#EggTimer-start-time-input-text').type('15 minutes')
-        cy.get('.validTime').click()
-        cy.url().should('be.equal', 'https://e.ggtimer.com/15%20minutes')
-        cy.get('.EggTimer-timer-bar-back').click()
+        homePage.getHomePageTitle().should('contain', 'e.ggtimer')
+        homePage.getInputField().type('15 minutes')
+        homePage.getStartBtn().click()
+        homePage.verifyRedirectedUrl().should('be.equal', 'https://e.ggtimer.com/15%20minutes')
+        homePage.getTimerBackBtn().click()
     })
 
     it('should verify the timer if user selects predefined timers successfully', () => {
-        cy.contains('/Pomodoro').click()
-        cy.get('.EggTimer-timer-bar-back').click()
+        homePage.getPredefinedTimerPomodoro().click()
+        homePage.getTimerBackBtn().click()
     })
 
     it('should change settings from Help and settings section ', () => {
-        cy.contains('Help and Settings').click()
+        homePage.getHelpAndSettingsBtn().click()
         //select digital theme from settings
-        cy.get('#theme-select').eq(0).select('Digital').should('have.value', 'gg_timer_digital')
+        homePage.selectTheme().eq(0).select('Digital').should('have.value', 'gg_timer_digital')
         //change alert sound volume (default volume - 100)
-        cy.get('#volume').invoke('val', '50').trigger('change')
+        homePage.changeVolumeSettings().trigger('change')
         //disable notification sound
-        cy.contains('Enabled')
-        cy.get('.slider.round').eq(1).click({ force: true })
-        cy.contains('Disabled')
-        cy.get('.EggTimer-settings-close').click({ force: true })
+        homePage.getEnabledText()
+        homePage.getVolumeSlider().eq(1).click({ force: true })
+        homePage.getDisabledText()
+        homePage.getHelpAndSettingsCloseBtn().click({ force: true })
     })
 
     it('should verify if user can add label to the timer via url', () => {
-        cy.url().then(urlValue => cy.visit(urlValue + 'We will go live!/in/5minutes'))
-        cy.get('.ClassicTimer-label').should('have.text', 'We will go live!')
+        homePage.verifyRedirectedUrl().then(urlValue => cy.visit(urlValue + 'We will go live!/in/5minutes'))
+        homePage.verifyTimerText().should('have.text', 'We will go live!')
     })
 
     it('should verify the timer when user enters large integer values', () => {
-        cy.get('#EggTimer-start-time-input-text').type('57575775757575757575677575757')
-        cy.get('.validTime').click()
-        cy.contains('NaN')
+        homePage.getInputField().type('57575775757575757575677575757')
+        homePage.getStartBtn().click()
+        homePage.verifyInvalidValidationTxt()
     })
 
     it('should verify if the user is able to toggle the toolbar', () => {
-        cy.contains('/Morning').click()
-        cy.url().should('be.equal', 'https://e.ggtimer.com/morning')
-        cy.get('.EggTimer-timer-bar-toggle-collapse').click()
+        homePage.getPredefinedTimerMorning().click()
+        homePage.verifyRedirectedUrl().should('be.equal', 'https://e.ggtimer.com/morning')
+        homePage.getToolBarBtn().click()
     })
 
     it('should verify if the user is able to perform actions on toolbar', () => {
-        cy.url().then(urlValue => cy.visit(urlValue + '120'))
-        cy.get('#theme-select').eq(0).select('Dot Matrix').should('have.value', 'gg_timer_dotmatrix')
-        cy.get('.UI-toggle-switch-off').eq(1).click({ force: true })
-        cy.get('.EggTimer-timer-bar-help').click()
-        cy.get('.EggTimer-settings-close').click({ force: true })
-        cy.get('[title="Restart timer"]').click()
-        cy.get('.EggTimer-timer-bar-back').click()
+        homePage.verifyRedirectedUrl().then(urlValue => cy.visit(urlValue + '120'))
+        homePage.selectTheme().eq(0).select('Dot Matrix').should('have.value', 'gg_timer_dotmatrix')
+        homePage.getVolumeOffBtnToolBar().eq(1).click({ force: true })
+        homePage.getHelpBtnToolBar().click()
+        homePage.getHelpAndSettingsCloseBtn().click({ force: true })
+        homePage.getRestartTimerBtn().click()
+        homePage.getTimerBackBtn().click()
     })
 
     it('should verify the alert when time expires', () => {
-        cy.get('#EggTimer-start-time-input-text').type('10')
-        cy.get('.validTime').click()
+        homePage.getInputField().type('10')
+        homePage.getStartBtn().click()
         //enable notification from toolbar
-        cy.get('.UI-toggle-switch-on.selected').eq(0).click({ foce: true })
+        homePage.getEnableNotificationBtn().eq(0).click({ foce: true })
         cy.wait(10000)
         //verify alert
         cy.on('window:alert', (txt) => {
