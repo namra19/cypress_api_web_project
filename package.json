@@ -1,0 +1,38 @@
+{
+  "name": "reqresapi",
+  "version": "1.0.0",
+  "description": "Automation test for reqres api's",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run pretest && npm run script || :",
+    "script": "node_modules/.bin/cypress run --reporter mochawesome",
+    "script-open": "node_modules/.bin/cypress open",
+    "combine-reports": "mochawesome-merge cypress/reports/mochareports/mocha*.json -o cypress/reports/mochareports/report.json",
+    "generate-report": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "delete:reportFolder": "rm -rf cypress/reports/mochareports/",
+    "create:reportFolder": "mkdir cypress/reports/mochareports/",
+    "pretest": "npm run delete:reportFolder && npm run create:reportFolder",
+    "posttest": "npm run combine-reports && npm run generate-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namra19/reqresapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/namra19/reqresapi/issues"
+  },
+  "homepage": "https://github.com/namra19/reqresapi#readme",
+  "dependencies": {
+    "cypress": "^12.1.0",
+    "reporter": "^0.1.0"
+  },
+  "devDependencies": {
+    "chai-json-schema": "^1.5.1",
+    "cypress-localstorage-commands": "^2.2.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.2.0"
+  }
+}
