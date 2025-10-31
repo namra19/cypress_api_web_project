@@ -1,4 +1,4 @@
-# qa-assignment-contentoo
+# cypress_ap_web_project
 This repository contains the code for UI and API test automation and manual test documentation
 
 1) software_testing_theory_task.pdf
